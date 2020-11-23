@@ -1,4 +1,4 @@
-package unit;
+package allocator.unit;
 
 public class Subpage<T> {
 
@@ -90,24 +90,75 @@ public class Subpage<T> {
 
     }
 
+    /**
+     * 初始化SubPage
+     * @param head
+     * @param chunk
+     * @param memoryMapIndex
+     * @param runOffset
+     * @param pageSize
+     * @param elementSize
+     */
     Subpage(Subpage<T> head, Chunk<T> chunk, int memoryMapIndex, int runOffset,
             int pageSize, int elementSize){
         this.chunk = chunk;
         this.memoryMapIndex = memoryMapIndex;
         this.runOffset = runOffset;
         this.pageSize = pageSize;
+        //如果pagaSize = 8k, bitmap = new long[3]
         bitmap = new long[pageSize >>> 10];
         init(head, elementSize);
 
     }
 
+    /**
+     * 初始化
+     * @param head
+     * @param elementSize
+     */
     private void init(Subpage<T> head, int elementSize) {
         doNotDestroy = true;
         this.elementSize = elementSize;
         if(elementSize != 0){
 
+            //设 pageSize = 8k, elementSize = 512B, maxNum = numAvail = 16;
+            this.maxNumElements = this.numAvail = pageSize / elementSize;
+
+            this.nextAvail = 0;
+
+            // 16 = 00010000 , bitmapLength = 0;
+            this.bitmapLength = this.maxNumElements >>> 6;
+            //小于64， bitmapLength +1
+            if((this.maxNumElements & 63) != 0){
+                ++this.bitmapLength;
+            }
+
+            //初始化bitmap
+            for(int i = 0; i < this.bitmapLength; ++i) {
+                this.bitmap[i] = 0L;
+            }
+
         }
 
+        this.addToPool(head);
+
     }
+
+    /**
+     * 添加到Arena中的双向链表
+     * @param head
+     */
+    private void addToPool(Subpage<T> head) {
+
+        this.prev = head;
+
+        this.next = head.next;
+
+        this.next.prev = this;
+        head.next = this;
+
+    }
+
+
 
 }

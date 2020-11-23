@@ -1,6 +1,4 @@
-package unit;
-
-import java.util.List;
+package allocator.unit;
 
 /**
  * 为每个线程分配的逻辑区域
