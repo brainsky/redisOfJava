@@ -1,5 +1,7 @@
 package allocator.unit;
 
+import allocator.process.Allocator;
+
 /**
  * 为每个线程分配的逻辑区域
  */
@@ -40,7 +42,7 @@ public class Arena<T> {
     /**
      * 分配器
      */
-    Allocator   parent;
+    Allocator parent;
 
 
     ChunkList<T> q050;
@@ -59,6 +61,19 @@ public class Arena<T> {
         Tiny,
         Small,
         Normal;
+    }
+    public Arena(int maxOrder, int pageSize, int pageShift, int chunkSize, int subpageOverflowMask){
+
+        this.maxOrder = maxOrder;
+
+        this.pageSize = pageSize;
+
+        this.pageShift = pageShift;
+
+        this.chunkSize = chunkSize;
+
+        this.subpageOverflowMask = subpageOverflowMask;
+
     }
 
 

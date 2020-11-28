@@ -1,5 +1,6 @@
 package allocator.unit;
 
+
 public class Subpage<T> {
 
     /**
@@ -159,6 +160,91 @@ public class Subpage<T> {
 
     }
 
+    public Chunk<T> getChunk() {
+        return chunk;
+    }
 
+    public Subpage<T> getNext() {
+        return next;
+    }
 
+    public void setNext(Subpage<T> next) {
+        this.next = next;
+    }
+
+    public Subpage<T> getPrev() {
+        return prev;
+    }
+
+    public void setPrev(Subpage<T> prev) {
+        this.prev = prev;
+    }
+
+    public int getMemoryMapIndex() {
+        return memoryMapIndex;
+    }
+
+    public int getRunOffset() {
+        return runOffset;
+    }
+
+    public int getPageSize() {
+        return pageSize;
+    }
+
+    public long[] getBitmap() {
+        return bitmap;
+    }
+
+    public void setBitmap(long[] bitmap) {
+        this.bitmap = bitmap;
+    }
+
+    public boolean isDoNotDestroy() {
+        return doNotDestroy;
+    }
+
+    public void setDoNotDestroy(boolean doNotDestroy) {
+        this.doNotDestroy = doNotDestroy;
+    }
+
+    public int getElementSize() {
+        return elementSize;
+    }
+
+    public void setElementSize(int elementSize) {
+        this.elementSize = elementSize;
+    }
+
+    public int getMaxNumElements() {
+        return maxNumElements;
+    }
+
+    public void setMaxNumElements(int maxNumElements) {
+        this.maxNumElements = maxNumElements;
+    }
+
+    public int getBitmapLength() {
+        return bitmapLength;
+    }
+
+    public void setBitmapLength(int bitmapLength) {
+        this.bitmapLength = bitmapLength;
+    }
+
+    public int getNextAvail() {
+        return nextAvail;
+    }
+
+    public void setNextAvail(int nextAvail) {
+        this.nextAvail = nextAvail;
+    }
+
+    public int getNumAvail() {
+        return numAvail;
+    }
+
+    public void setNumAvail(int numAvail) {
+        this.numAvail = numAvail;
+    }
 }

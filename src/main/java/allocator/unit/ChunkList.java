@@ -33,4 +33,11 @@ public class ChunkList<T> {
      * 上一个状态
      */
     private ChunkList<T> prevList;
+
+
+    public ChunkList(Arena arena){
+
+        this.arena = arena;
+
+    }
 }
